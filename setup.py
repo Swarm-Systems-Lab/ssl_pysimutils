@@ -4,7 +4,7 @@ setup(
     name="ssl_pysimutils",
     version="1.0",
     description="",
-    author="Jesús Bautista Villar",
+    author="Swarm Systems Lab",
     author_email="",
     url="",
     )

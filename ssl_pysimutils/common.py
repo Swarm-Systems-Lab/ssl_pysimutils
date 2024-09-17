@@ -1,3 +1,7 @@
+"""\
+# Copyright (C) 2024 Jesús Bautista Villar <jesbauti20@gmail.com>
+"""
+
 import os
 import pandas as pd
 
@@ -8,6 +12,7 @@ from numpy import linalg as la
 # -----------------------------------------------------------------------------
 # Common tools (general use utility functions)
 # -----------------------------------------------------------------------------
+
 
 def load_data(filename, t0, tf=None, sep="\t", time_label="Time"):
     """
@@ -20,6 +25,7 @@ def load_data(filename, t0, tf=None, sep="\t", time_label="Time"):
         data = data.loc[(data[time_label] >= t0) & (data[time_label] <= tf)]
     return data
 
+
 def createDir(dir, verbose=True):
     """Create a new directory if it doesn't exist"""
     try:
@@ -29,6 +35,7 @@ def createDir(dir, verbose=True):
     except FileExistsError:
         if verbose:
             print("The directory '{}' already exists!".format(dir))
+
 
 # """
 # Check if the dimensions are correct and adapt the input to 2D.
