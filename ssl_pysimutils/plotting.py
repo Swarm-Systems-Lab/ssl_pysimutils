@@ -13,6 +13,7 @@ import matplotlib.pylab as plt
 from matplotlib.path import Path
 import matplotlib.patches as patches
 from matplotlib.colors import ListedColormap
+import matplotlib.ticker as ticker
 
 # -----------------------------------------------------------------------------
 # Plotting tools
@@ -51,6 +52,27 @@ def unicycle_patch(XY, yaw, color, size=1, lw=0.5):
     path = Path(verts, codes)
 
     return patches.PathPatch(path, fc=color, lw=lw)
+
+
+def vector2d(ax, P0, Pf, c="k", ls="-", s=1, lw=0.7, hw=0.1, hl=0.2, alpha=1, zorder=1):
+    """
+    Function to easy plot a 2D vector
+    """
+    quiv = ax.arrow(
+        P0[0],
+        P0[1],
+        s * Pf[0],
+        s * Pf[1],
+        lw=lw,
+        color=c,
+        ls=ls,
+        head_width=hw,
+        head_length=hl,
+        length_includes_head=True,
+        alpha=alpha,
+        zorder=zorder,
+    )
+    return quiv
 
 
 def zoom_range(begin, end, center, scale_factor):
@@ -112,3 +134,21 @@ def alpha_cmap(cmap, alpha):
     # Create new colormap which mimics the alpha values
     my_cmap = ListedColormap(my_cmap)
     return my_cmap
+
+
+def config_data_axis(
+    ax: plt.Axes,
+    x_step: int,
+    y_step: int,
+    y_right: bool = True,
+    format_float: bool = False,
+):
+    if y_right:
+        ax.yaxis.tick_right()
+    if format_float:
+        ax.yaxis.set_major_formatter(plt.FormatStrFormatter("%.2f"))
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(x_step))
+    ax.xaxis.set_minor_locator(ticker.MultipleLocator(x_step / 4))
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(y_step))
+    ax.yaxis.set_minor_locator(ticker.MultipleLocator(y_step / 4))
+    ax.grid(True)

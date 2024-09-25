@@ -46,6 +46,29 @@ def uniform_distrib(N: int, lims: list[float], rc0: list[float] = [0, 0]):
 
 
 # --------------------------------------------------------------------------------------
+# Laplacian utils
+
+
+def build_B(list_edges, N):
+    """
+    Generate the incidence matrix
+    """
+    B = np.zeros((N, len(list_edges)))
+    for i in range(len(list_edges)):
+        B[list_edges[i][0], i] = 1
+        B[list_edges[i][1], i] = -1
+    return B
+
+
+def build_L_from_B(B):
+    """
+    Generate the Laplacian matrix by using the incidence matrix (unit weights)
+    """
+    L = B @ B.T / 2
+    return L
+
+
+# --------------------------------------------------------------------------------------
 # Graph generators
 
 
@@ -127,7 +150,9 @@ def gen_Z_ring(N: int):
     Generate a ring graph
     """
     Z = [(i, i + 1) for i in range(N - 1)]
+    Z.extend([(i + 1, i) for i in range(N - 1)])
     Z.append((N - 1, 0))
+    Z.append((0, N - 1))
     return Z
 
 
