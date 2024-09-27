@@ -1,5 +1,5 @@
-# ssl_pysimutils
+# Swarm Systems Lab Python Utils for Simulations
 
 ```
-pip install git+https://github.com/jesusBV20/ssl_pysimutils.git@main
+pip install git+https://github.com/Swarm-Systems-Lab/ssl_pysimutils.git@main
 ```
