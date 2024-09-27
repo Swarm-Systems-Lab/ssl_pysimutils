@@ -15,6 +15,10 @@ import random
 # --------------------------------------------------------------------------------------
 
 
+def R_2D_matrix(angle):
+    return np.array([[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]])
+
+
 def pprz_angle(theta_array: np.ndarray):
     return -theta_array + np.pi / 2
 
@@ -23,7 +27,7 @@ def pprz_angle(theta_array: np.ndarray):
 # Statistical distributions
 
 
-def uniform_distrib(N: int, lims: list[float], rc0: list[float] = [0, 0]):
+def uniform_distrib(N: int, lims: list[float], rc0: list[float] = [0, 0], seed=None):
     """
     Function to generate uniform rectangular distributions
 
@@ -36,6 +40,9 @@ def uniform_distrib(N: int, lims: list[float], rc0: list[float] = [0, 0]):
     lims:
         distance limits [lim_x,lim_y,...] in each dimension of the real space
     """
+    if seed is not None:
+        random.seed(seed)
+
     if len(rc0) + len(lims) != 2 * 2:
         raise Exception("The dimension of rc0 and lims should be 2")
 
@@ -72,10 +79,13 @@ def build_L_from_B(B):
 # Graph generators
 
 
-def gen_Z_random(N: int, rounds: int = 1):
+def gen_Z_random(N: int, rounds: int = 1, seed=None):
     """
     Generate a random graph using a simple heuristic
     """
+    if seed is not None:
+        random.seed(seed)
+
     Z = []
 
     while rounds:

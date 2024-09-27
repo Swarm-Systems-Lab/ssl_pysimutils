@@ -9,6 +9,7 @@ import numpy as np
 from numpy import linalg as la
 
 # External graphic tools
+import matplotlib
 import matplotlib.pylab as plt
 from matplotlib.path import Path
 import matplotlib.patches as patches
@@ -18,6 +19,12 @@ import matplotlib.ticker as ticker
 # -----------------------------------------------------------------------------
 # Plotting tools
 # -----------------------------------------------------------------------------
+
+
+def set_paper_parameters(fontsize=12):
+    matplotlib.rc("font", **{"size": fontsize, "family": "serif"})
+    matplotlib.rc("text", **{"usetex": True})
+    matplotlib.rc("mathtext", **{"fontset": "cm"})
 
 
 def unicycle_patch(XY, yaw, color, size=1, lw=0.5):
@@ -138,8 +145,8 @@ def alpha_cmap(cmap, alpha):
 
 def config_data_axis(
     ax: plt.Axes,
-    x_step: int,
-    y_step: int,
+    x_step: int = None,
+    y_step: int = None,
     y_right: bool = True,
     format_float: bool = False,
 ):
@@ -147,8 +154,11 @@ def config_data_axis(
         ax.yaxis.tick_right()
     if format_float:
         ax.yaxis.set_major_formatter(plt.FormatStrFormatter("%.2f"))
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(x_step))
-    ax.xaxis.set_minor_locator(ticker.MultipleLocator(x_step / 4))
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(y_step))
-    ax.yaxis.set_minor_locator(ticker.MultipleLocator(y_step / 4))
+    if x_step is not None:
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(x_step))
+        ax.xaxis.set_minor_locator(ticker.MultipleLocator(x_step / 4))
+    if y_step is not None:
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(y_step))
+        ax.yaxis.set_minor_locator(ticker.MultipleLocator(y_step / 4))
+
     ax.grid(True)
