@@ -16,14 +16,14 @@ import matplotlib.patches as patches
 from matplotlib.colors import ListedColormap
 import matplotlib.ticker as ticker
 
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------
 # Plotting tools
-# -----------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------
 
 
 def set_paper_parameters(fontsize=12):
     matplotlib.rc("font", **{"size": fontsize, "family": "serif"})
-    matplotlib.rc("text", **{"usetex": True})
+    matplotlib.rc("text", **{"usetex": True, "latex.preamble": r"\usepackage{amsmath}"})
     matplotlib.rc("mathtext", **{"fontset": "cm"})
 
 
@@ -162,3 +162,6 @@ def config_data_axis(
         ax.yaxis.set_minor_locator(ticker.MultipleLocator(y_step / 4))
 
     ax.grid(True)
+
+
+# ------------------------------------------------------------------------------------
