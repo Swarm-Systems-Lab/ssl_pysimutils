@@ -149,6 +149,8 @@ def config_data_axis(
     y_step: int = None,
     y_right: bool = True,
     format_float: bool = False,
+    xlims: list[float] = None,
+    ylims: list[float] = None,
 ):
     if y_right:
         ax.yaxis.tick_right()
@@ -160,6 +162,11 @@ def config_data_axis(
     if y_step is not None:
         ax.yaxis.set_major_locator(ticker.MultipleLocator(y_step))
         ax.yaxis.set_minor_locator(ticker.MultipleLocator(y_step / 4))
+
+    if xlims is not None:
+        ax.set_xlim(xlims)
+    if ylims is not None:
+        ax.set_ylim(ylims)
 
     ax.grid(True)
 
